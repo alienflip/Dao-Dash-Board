@@ -8,7 +8,7 @@ async function endVote () {
     let web3 = await fetchNetwork();
 
     const senderAcct = await chooseAccount();
-    const gas = 22252862;
+    const gas = 4252862;
 
     web3.eth.accounts.wallet.add(senderAcct.pk);
 

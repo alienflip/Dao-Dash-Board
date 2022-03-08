@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/alienflip/DaoDashBoard/dao-dev/contracts/DAOTooling.sol": {
+      "lastModificationDate": 1646862045894,
+      "contentHash": "bbe060d281b2428edc8b3161f27f6a2e",
+      "sourceName": "contracts/DAOTooling.sol",
+      "solcConfig": {
+        "version": "0.8.1",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.1"
+      ],
+      "artifacts": [
+        "DAOTooling"
+      ]
+    }
+  }
+}

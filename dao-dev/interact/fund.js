@@ -5,10 +5,11 @@ const chooseAccount = require("./utils/accountSelect");
 let web3 = undefined;
 
 async function executeTransaction(web3, data, to, clientEthPrivateKey, gas) {
+
     const transaction = {
         to: to,
         gas: gas,
-        value: process.argv[4],
+        value: 10000000000,
         data: data
     };
   
@@ -32,7 +33,7 @@ async function executeTransaction(web3, data, to, clientEthPrivateKey, gas) {
 async function fund () {
 
     const senderAcct = await chooseAccount();
-    const gas = 38779;
+    const gas = 58779;
 
     web3.eth.accounts.wallet.add(senderAcct.pk);
     

@@ -52,8 +52,6 @@ Find your harmony addresses [with this](https://docs.harmony.one/home/network/wa
 
 > https://faucet.pops.one/
 
-------------
-
 ## Compile DAO contracts
 
 ```
@@ -64,7 +62,8 @@ npx hardhat compile
 
 ## Deploy DAO contracts 
 
-> networks integrated : `rinkeby`, `metis`, `harmony`
+> networks integrated : `rinkeby`
+> > networks in dev : `harmony`
 
 ```
 npx hardhat run scripts/deploy.js --network <network>
@@ -74,11 +73,11 @@ npx hardhat run scripts/deploy.js --network <network>
 
 ## Interact with DAO contracts
 
-> here you should specify <network> = <ropsten>, <harmony>, <metis> and <account> = <0>, <1>, <2>
+> here you should specify `<network>` = `<ropsten>`, `<harmony>`, `<metis>`  and `<account>` = `<0>`, `<1>`, `<2>`
  
 >> Fund contract
 ```
-interact/fund.js <network> <account number>
+node interact/fund.js <network> <account number>
 ```
 
 >> Print to console voting events as they occur

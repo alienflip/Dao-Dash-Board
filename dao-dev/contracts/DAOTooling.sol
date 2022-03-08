@@ -18,7 +18,7 @@ contract DAOTooling {
     );
 
     // 50 block vote time
-    uint256 voteTime = 50;
+    uint256 voteTime = 15;
 
     // accepted vote proposal types
     bytes addMember = "Add Member";
@@ -141,9 +141,15 @@ contract DAOTooling {
     }
 
     function getVoteDetails(bytes memory message) public {
+        uint256 time = 0;
+        if(voteTime + voteRound >= block.number){
+            time = voteTime - (block.number - voteRound);
+        } else {
+            time = 0;
+        }
         emit informVoters (
             voteIsActive,
-            voteTime - (block.number - voteRound),
+            time,
             currentVoteType,
             proposedAddress,
             proposedAmount,
