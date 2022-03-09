@@ -32,7 +32,7 @@ cd dao-dev
 
 ------------
 
-## frontend interaction 
+## frontend dao playground 
 
 ```
 cd frontend-dash-dao
