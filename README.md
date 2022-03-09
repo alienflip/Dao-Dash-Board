@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  Ethereum Tooling
+  aramis dao tooling
 </h1>
 
 <p align="center">
