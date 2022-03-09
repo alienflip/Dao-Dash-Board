@@ -21,3 +21,19 @@
 ```
 git clone git@github.com:alienflip/DaoDashBoard.git
 ```
+
+------------
+
+## contract deployment
+
+```
+cd dao-dev
+```
+
+------------
+
+## frontend interaction 
+
+```
+cd frontend-dash-dao
+```
