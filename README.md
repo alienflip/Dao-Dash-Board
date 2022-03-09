@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  aramis dao tooling
+  aramis-DAO tooling
 </h1>
 
 <p align="center">
