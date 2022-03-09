@@ -1,7 +1,3 @@
-# aramis dao dashboard app
-
-------------
-
 ## Installation
 
 ```
