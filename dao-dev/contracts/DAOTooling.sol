@@ -81,7 +81,7 @@ contract DAOTooling {
     function completeVote () external {
         require (DAO[msg.sender]);
         require (voteIsActive);
-        require (block.number >= voteRound + voteTime);
+        require (block.number > voteRound + voteTime);
 
         // count valid votes
         uint voteCount = 0;
