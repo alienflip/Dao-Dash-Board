@@ -9,5 +9,5 @@ npm i
 ## quickstart
 
 ``` 
-npm run dev
+npm run start
 ```

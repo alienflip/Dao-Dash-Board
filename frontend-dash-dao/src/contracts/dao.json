@@ -1,0 +1,134 @@
+{
+    "_format": "hh-sol-artifact-1",
+    "contractName": "DAOTooling",
+    "sourceName": "contracts/DAOTooling.sol",
+    "abi": [
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "member0",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "member1",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "member2",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "roundIsActve",
+            "type": "bool"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "timeLeftInRound",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes",
+            "name": "currentVoteType",
+            "type": "bytes"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "proposedAddress",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "proposedAmount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "thresholdVotes",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "bytes",
+            "name": "msg",
+            "type": "bytes"
+          }
+        ],
+        "name": "informVoters",
+        "type": "event"
+      },
+      {
+        "inputs": [],
+        "name": "addVote",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "completeVote",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes",
+            "name": "message",
+            "type": "bytes"
+          }
+        ],
+        "name": "getVoteDetails",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "recieveEther",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "newAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "voteType",
+            "type": "bytes"
+          }
+        ],
+        "name": "suggestVote",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+}
