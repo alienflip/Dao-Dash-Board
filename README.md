@@ -20,6 +20,4 @@
 
 ```
 git clone git@github.com:alienflip/DaoDashBoard.git
-cd DaoDashBoard
-npm i 
 ```
