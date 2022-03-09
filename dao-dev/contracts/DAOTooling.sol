@@ -140,6 +140,7 @@ contract DAOTooling {
         }
     }
 
+    // used for displaying current vote-round information
     function getVoteDetails(bytes memory message) public {
         uint256 time = 0;
         if(voteTime + voteRound >= block.number){
