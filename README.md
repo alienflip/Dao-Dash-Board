@@ -14,9 +14,6 @@
 > Protocol 
 > > A DAO member can initate a vote if and only if there is no current round active. A DAO member can add a vote or end a round if and only if there is a round active
 
-> Layer 2 networks
-> > To use `metis` and `harmony`, you must [add](https://docs.metis.io/building-on-metis/connection-details) their tokens [to](https://docs.harmony.one/home/network/wallets/browser-extensions-wallets/metamask-wallet/adding-harmony) metamask, and then fund your wallet with a faucet
-------------
 ------------
 
 ## Installation
