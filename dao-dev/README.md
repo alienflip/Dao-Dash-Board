@@ -22,8 +22,6 @@
 ## Installation
 
 ```
-git clone git@github.com:alienflip/Ethereum-Tooling.git
-cd EthDAOTooling
 npm i
 ```
 
