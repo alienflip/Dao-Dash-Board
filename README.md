@@ -24,16 +24,16 @@ git clone git@github.com:alienflip/DaoDashBoard.git
 
 ------------
 
-## contract deployment
-
-```
-cd dao-dev
-```
-
-------------
-
 ## frontend dao playground 
 
 ```
 cd frontend-dash-dao
+```
+
+------------
+
+## contract deployment (for devs) 
+
+```
+cd dao-dev
 ```
