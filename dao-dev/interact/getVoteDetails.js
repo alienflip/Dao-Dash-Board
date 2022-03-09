@@ -26,7 +26,7 @@ async function getDetails (voteType) {
 
 async function main() {
     web3 = await fetchNetwork();
-    const voteType = "Add Member"; // "Remove Member"
+    const voteType = "dummy";
     var hex = web3.utils.asciiToHex(voteType);
     var voteType_ = web3.eth.abi.encodeParameter('bytes', web3.utils.rightPad(hex, 64));
     await getDetails(voteType_);

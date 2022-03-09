@@ -17,8 +17,8 @@ contract DAOTooling {
         bytes msg
     );
 
-    // 50 block vote time
-    uint256 voteTime = 15;
+    // 20 block vote time
+    uint256 voteTime = 20;
 
     // accepted vote proposal types
     bytes addMember = "Add Member";
@@ -156,6 +156,21 @@ contract DAOTooling {
             thresholdVotes,
             message
         );
+    }
+
+    // return all members of DAO
+    function getDAO() public view returns(address[] memory){
+        return DAOTracker;
+    }
+
+    // return check to see if token is whitelisted
+    function getToken(address token) public view returns(bool) {
+        return tokens[token];
+    }
+
+    // get bridge fee
+    function getFee() public view returns(uint256) {
+        return fee;
     }
 
     function recieveEther () public payable {}
