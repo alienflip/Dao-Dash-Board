@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  aramis-DAO tooling
+  aramid-DAO tooling
 </h1>
 
 <p align="center">
@@ -26,13 +26,17 @@ git clone git@github.com:alienflip/DaoDashBoard.git
 
 ## frontend dao playground 
 
+> for groups with the below contract deployed already
+
 ```
 cd frontend-dash-dao
 ```
 
 ------------
 
-## contract deployment (for devs) 
+## contract deployment 
+
+> for devs who want to initialise a DAO
 
 ```
 cd dao-dev

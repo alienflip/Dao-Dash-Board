@@ -2,9 +2,10 @@ import './App.css';
 import contract from './contracts/dao.json';
 import { useEffect, useState } from 'react';
 import {ethers} from 'ethers';
+import { hexlify } from 'ethers/lib/utils';
 
 const abi = contract.abi;
-const contractAddress = "0xe77df3C92062F73f7bCc56074D72587f48ea3bc3";
+const contractAddress = "0x903cb21bF52fD61b25ebEB4EAa74BF0571953a55";
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
@@ -44,6 +45,33 @@ function App() {
        }
   }
 
+  const contractHandler = async (type, address, amount) => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+            
+            let nftTx = undefined;
+
+            switch(type){
+              case "":
+                break;
+              default:
+                break;
+            }
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
   const getVoteDetailsHandler = async () => {
       try{
           const {ethereum} = window;
@@ -52,7 +80,8 @@ function App() {
               const signer = provider.getSigner();
               const nftContract = new ethers.Contract(contractAddress, abi, signer);
   
-              let nftTx = await nftContract.getVoteDetails("dummy");
+              const dummy = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("yo wassup"));
+              let nftTx = await nftContract.getVoteDetails(dummy);
   
               await nftTx.wait();
               console.log(nftTx.hash);
@@ -104,6 +133,117 @@ function App() {
     }
   }
 
+  const addValidatorHandler = async (address) => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+
+            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Add Member"));
+            
+            let nftTx = await nftContract.suggestVote(address, 0, type);
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+  const removeValidatorHandler = async (address) => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+
+            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Remove Member"));
+            
+            let nftTx = await nftContract.suggestVote(address, 0, type);
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+  const addTokenHandler = async (address) => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+
+            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Add Token"));
+            
+            let nftTx = await nftContract.suggestVote(address, 0, type);
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+  const removeTokenHandler = async (address) => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+
+            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Remove Token"));
+            
+            let nftTx = await nftContract.suggestVote(address, 0, type);
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+  const changeFeeHandler = async (fee) => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+
+            const zeroAddr = "0x0000000000000000000000000000000000000000";
+            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Change Fee"));
+
+            let nftTx = await nftContract.suggestVote(zeroAddr, fee, type);
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
   const [data, setData] = useState({
     name: ""
   });
@@ -124,6 +264,7 @@ function App() {
     setData({
       name: name.value
     });
+    addValidatorHandler(name.value);
   };
 
   const onSubmitFormValidatorRemove = (event) => {
@@ -132,6 +273,7 @@ function App() {
     setData({
       name: name.value
     });
+    removeValidatorHandler(name.value);
   };
 
   const onSubmitFormTokenAdd = (event) => {
@@ -140,6 +282,7 @@ function App() {
     setData({
       name: name.value
     });
+    addTokenHandler(name.value);
   };
 
   const onSubmitFormTokenRemove = (event) => {
@@ -148,6 +291,7 @@ function App() {
     setData({
       name: name.value
     });
+    removeTokenHandler(name.value);
   };
 
   const onSubmitFormFee = (event) => {
@@ -156,6 +300,7 @@ function App() {
     setData({
       name: name.value
     });
+    changeFeeHandler(name.value);
   };
 
   const connectWalletButton = () => {
