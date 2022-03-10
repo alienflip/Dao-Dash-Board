@@ -6,6 +6,16 @@ import { hexlify } from 'ethers/lib/utils';
 
 const abi = contract.abi;
 const contractAddress = "0x903cb21bF52fD61b25ebEB4EAa74BF0571953a55";
+const zeroAddr = "0x0000000000000000000000000000000000000000";
+
+function hex2a(hex) {
+  var str = '';
+  for (var i = 0; i < hex.length; i += 2) {
+      var v = parseInt(hex.substr(i, 2), 16);
+      if (v) str += String.fromCharCode(v);
+  }
+  return str;
+}  
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
@@ -45,197 +55,65 @@ function App() {
        }
   }
 
-  const contractHandler = async (type, address, amount) => {
+  const contractHandler = async (type, address, fee) => {
     try{
         const {ethereum} = window;
         if(ethereum){
             const provider = new ethers.providers.Web3Provider(ethereum);
             const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-            
-            let nftTx = undefined;
+            const contract = new ethers.Contract(contractAddress, abi, signer);
+            let type_ = undefined;
+            let tx = undefined;
 
             switch(type){
-              case "":
+              case "voteDetails":
+                const dummy = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("get-logs"));
+                tx = await contract.getVoteDetails(dummy);
+                break;
+              case "addVote":
+                tx = await contract.addVote();
+                break;
+              case "completeVote":
+                tx = await contract.completeVote();
+                break;
+              case "newValidator":
+                type_ = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Add Member"));
+                tx = await contract.suggestVote(address, 0, type_);
+                break;
+              case "removeValidator":
+                type_ = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Remove Member"));
+                tx = await contract.suggestVote(address, 0, type_);
+                break;
+              case "addToken":
+                type_ = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Add Token"));
+                tx = await contract.suggestVote(address, 0, type_);
+                break;
+              case "removeToken":
+                type_ = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Remove Token"));
+                tx = await contract.suggestVote(address, 0, type_);
+                break;
+              case "changeFee":
+                type_ = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Change Fee"));
+                tx = await contract.suggestVote(zeroAddr, fee, type_);
                 break;
               default:
                 break;
             }
   
-            await nftTx.wait();
-            console.log(nftTx.hash);
-        } else {
-            console.log("Ethereum object not found");
-        }
-    } catch(e) {
-        console.log(e);
-    }
-  }
+            await tx.wait();
 
-  const getVoteDetailsHandler = async () => {
-      try{
-          const {ethereum} = window;
-          if(ethereum){
-              const provider = new ethers.providers.Web3Provider(ethereum);
-              const signer = provider.getSigner();
-              const nftContract = new ethers.Contract(contractAddress, abi, signer);
-  
-              const dummy = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("yo wassup"));
-              let nftTx = await nftContract.getVoteDetails(dummy);
-  
-              await nftTx.wait();
-              console.log(nftTx.hash);
-          } else {
-              console.log("Ethereum object not found");
-          }
-      } catch(e) {
-          console.log(e);
-      }
-  }
-
-  const addVoteHandler = async () => {
-    try{
-        const {ethereum} = window;
-        if(ethereum){
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-
-            let nftTx = await nftContract.addVote();
-  
-            await nftTx.wait();
-            console.log(nftTx.hash);
-        } else {
-            console.log("Ethereum object not found");
-        }
-    } catch(e) {
-        console.log(e);
-    }
-  }
-
-  const completeRoundHandler = async () => {
-    try{
-        const {ethereum} = window;
-        if(ethereum){
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-            
-            let nftTx = await nftContract.completeVote();
-  
-            await nftTx.wait();
-            console.log(nftTx.hash);
-        } else {
-            console.log("Ethereum object not found");
-        }
-    } catch(e) {
-        console.log(e);
-    }
-  }
-
-  const addValidatorHandler = async (address) => {
-    try{
-        const {ethereum} = window;
-        if(ethereum){
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-
-            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Add Member"));
-            
-            let nftTx = await nftContract.suggestVote(address, 0, type);
-  
-            await nftTx.wait();
-            console.log(nftTx.hash);
-        } else {
-            console.log("Ethereum object not found");
-        }
-    } catch(e) {
-        console.log(e);
-    }
-  }
-
-  const removeValidatorHandler = async (address) => {
-    try{
-        const {ethereum} = window;
-        if(ethereum){
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-
-            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Remove Member"));
-            
-            let nftTx = await nftContract.suggestVote(address, 0, type);
-  
-            await nftTx.wait();
-            console.log(nftTx.hash);
-        } else {
-            console.log("Ethereum object not found");
-        }
-    } catch(e) {
-        console.log(e);
-    }
-  }
-
-  const addTokenHandler = async (address) => {
-    try{
-        const {ethereum} = window;
-        if(ethereum){
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-
-            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Add Token"));
-            
-            let nftTx = await nftContract.suggestVote(address, 0, type);
-  
-            await nftTx.wait();
-            console.log(nftTx.hash);
-        } else {
-            console.log("Ethereum object not found");
-        }
-    } catch(e) {
-        console.log(e);
-    }
-  }
-
-  const removeTokenHandler = async (address) => {
-    try{
-        const {ethereum} = window;
-        if(ethereum){
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-
-            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Remove Token"));
-            
-            let nftTx = await nftContract.suggestVote(address, 0, type);
-  
-            await nftTx.wait();
-            console.log(nftTx.hash);
-        } else {
-            console.log("Ethereum object not found");
-        }
-    } catch(e) {
-        console.log(e);
-    }
-  }
-
-  const changeFeeHandler = async (fee) => {
-    try{
-        const {ethereum} = window;
-        if(ethereum){
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const nftContract = new ethers.Contract(contractAddress, abi, signer);
-
-            const zeroAddr = "0x0000000000000000000000000000000000000000";
-            const type = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("Change Fee"));
-
-            let nftTx = await nftContract.suggestVote(zeroAddr, fee, type);
-  
-            await nftTx.wait();
-            console.log(nftTx.hash);
+            if(type == "voteDetails") {
+              const filterFrom = contract.filters.informVoters();
+              let voteDetails = await contract.queryFilter(filterFrom, 0, -20)
+              const currentVote = voteDetails[0];
+              console.log("round is active: ", currentVote.args[0])
+              console.log("time left in round: ", currentVote.args[1].toString())
+              console.log("vote type: ", hex2a(currentVote.args[2].toString()))
+              console.log("proposed address: ", currentVote.args[3].toString())
+              console.log("proposed amount: ", currentVote.args[4].toString())
+              console.log("threshold votes: ", currentVote.args[5].toString())
+              console.log("sender message: ", hex2a(currentVote.args[6].toString()))
+            }
         } else {
             console.log("Ethereum object not found");
         }
@@ -248,14 +126,19 @@ function App() {
     name: ""
   });
 
+  const onSubmitFormVoteDetails = (event) => {
+    event.preventDefault();
+    contractHandler("voteDetails", zeroAddr, 0);
+  };
+
   const onSubmitFormVote = (event) => {
     event.preventDefault();
-    addVoteHandler();
+    contractHandler("addVote", zeroAddr, 0);
   };
 
   const onSubmitFormComplete = (event) => {
     event.preventDefault();
-    completeRoundHandler();
+    contractHandler("completeVote", zeroAddr, 0);
   };
 
   const onSubmitFormValidatorAdd = (event) => {
@@ -264,7 +147,7 @@ function App() {
     setData({
       name: name.value
     });
-    addValidatorHandler(name.value);
+    contractHandler("newValidator", name.value, 0);
   };
 
   const onSubmitFormValidatorRemove = (event) => {
@@ -273,7 +156,7 @@ function App() {
     setData({
       name: name.value
     });
-    removeValidatorHandler(name.value);
+    contractHandler("removeValidator", name.value, 0);
   };
 
   const onSubmitFormTokenAdd = (event) => {
@@ -282,7 +165,7 @@ function App() {
     setData({
       name: name.value
     });
-    addTokenHandler(name.value);
+    contractHandler("addToken", name.value, 0);
   };
 
   const onSubmitFormTokenRemove = (event) => {
@@ -291,7 +174,7 @@ function App() {
     setData({
       name: name.value
     });
-    removeTokenHandler(name.value);
+    contractHandler("removeToken", name.value, 0);
   };
 
   const onSubmitFormFee = (event) => {
@@ -300,7 +183,7 @@ function App() {
     setData({
       name: name.value
     });
-    changeFeeHandler(name.value);
+    contractHandler("changeFee", zeroAddr, name.value);
   };
 
   const connectWalletButton = () => {
@@ -313,24 +196,24 @@ function App() {
 
   const getVoteDetailsButton = () => {
       return(
-          <button onClick={getVoteDetailsHandler} className='cta-button get-vote'>
+          <button onClick={onSubmitFormVoteDetails} className='cta-button get-vote'>
               Click for current round details!
           </button>
       )
-  };
-
-  const completeVoteButton = () => {
-    return(
-        <button onClick={onSubmitFormComplete} className='cta-button get-vote'>
-            Click to complete voting round!
-        </button>
-    )
   };
 
   const addVoteButton = () => {
     return(
         <button onClick={onSubmitFormVote} className='cta-button get-vote'>
             Click to add a vote in this round!
+        </button>
+    )
+  };
+
+  const completeVoteButton = () => {
+    return(
+        <button onClick={onSubmitFormComplete} className='cta-button get-vote'>
+            Click to complete voting round!
         </button>
     )
   };
