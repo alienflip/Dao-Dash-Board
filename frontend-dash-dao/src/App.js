@@ -9,66 +9,6 @@ const contractAddress = "0xe77df3C92062F73f7bCc56074D72587f48ea3bc3";
 function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
 
-  const [data, setData] = useState({
-    input: ""
-  });
-
-  const onSubmitFormTokenAdd = (event) => {
-    event.preventDefault();
-    const { input } = event.target;
-    setData({
-      input: input.value
-    });
-  };
-
-  const onSubmitFormTokenRemove = (event) => {
-    event.preventDefault();
-    const { input } = event.target;
-    setData({
-      input: input.value
-    });
-  };
-
-  const onSubmitFormValidatorAdd = (event) => {
-    event.preventDefault();
-    const { input } = event.target;
-    setData({
-      input: input.value
-    });
-  };
-
-  const onSubmitFormValidatorRemove = (event) => {
-    event.preventDefault();
-    const { input } = event.target;
-    setData({
-      input: input.value
-    });
-  };
-
-  const onSubmitFormVote = (event) => {
-    event.preventDefault();
-    const { input } = event.target;
-    setData({
-      input: input.value
-    });
-  };
-
-  const onSubmitFormComplete = (event) => {
-    event.preventDefault();
-    const { input } = event.target;
-    setData({
-      input: input.value
-    });
-  };
-
-  const onSubmitFormFee = (event) => {
-    event.preventDefault();
-    const { input } = event.target;
-    setData({
-      input: input.value
-    });
-  };
-
   const checkWalletIsConnected = async () => {
       const{ethereum} = window;
       if(!ethereum){
@@ -124,12 +64,106 @@ function App() {
       }
   }
 
+  const addVoteHandler = async () => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+
+            let nftTx = await nftContract.addVote();
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+  const completeRoundHandler = async () => {
+    try{
+        const {ethereum} = window;
+        if(ethereum){
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const nftContract = new ethers.Contract(contractAddress, abi, signer);
+            
+            let nftTx = await nftContract.completeVote();
+  
+            await nftTx.wait();
+            console.log(nftTx.hash);
+        } else {
+            console.log("Ethereum object not found");
+        }
+    } catch(e) {
+        console.log(e);
+    }
+  }
+
+  const [data, setData] = useState({
+    name: ""
+  });
+
+  const onSubmitFormVote = (event) => {
+    event.preventDefault();
+    addVoteHandler();
+  };
+
+  const onSubmitFormComplete = (event) => {
+    event.preventDefault();
+    completeRoundHandler();
+  };
+
+  const onSubmitFormValidatorAdd = (event) => {
+    event.preventDefault();
+    const { name } = event.target;
+    setData({
+      name: name.value
+    });
+  };
+
+  const onSubmitFormValidatorRemove = (event) => {
+    event.preventDefault();
+    const { name } = event.target;
+    setData({
+      name: name.value
+    });
+  };
+
+  const onSubmitFormTokenAdd = (event) => {
+    event.preventDefault();
+    const { name } = event.target;
+    setData({
+      name: name.value
+    });
+  };
+
+  const onSubmitFormTokenRemove = (event) => {
+    event.preventDefault();
+    const { name } = event.target;
+    setData({
+      name: name.value
+    });
+  };
+
+  const onSubmitFormFee = (event) => {
+    event.preventDefault();
+    const { name } = event.target;
+    setData({
+      name: name.value
+    });
+  };
+
   const connectWalletButton = () => {
-      return(
-          <button onClick={connectWalletHandler} className='cta-button connect-wallet-button'>
-              Connect wallet!
-          </button>
-      )
+    return(
+        <button onClick={connectWalletHandler} className='cta-button connect-wallet-button'>
+            Connect wallet!
+        </button>
+    )
   };
 
   const getVoteDetailsButton = () => {
@@ -163,10 +197,10 @@ function App() {
   return(
       <div className='main-app'>
           <h1>
-              aramisDAO
+              aramidDAO
           </h1>
           <h4>
-              (best i get at frontend development)
+              (best i get at frontend dev)
           </h4>
           <div>
               {currentAccount ? getVoteDetailsButton() : connectWalletButton()}
@@ -198,7 +232,7 @@ function App() {
               style={{ display: "flex", flexDirection: "column"}}
             >
               <label style={{textAlign: "center"}}>Suggest a new validator address</label>
-              <input type="text" name="input-validator" />
+              <input type="text" name="name" />
               <input type="Submit" />
             </form>
           </div>
@@ -211,7 +245,7 @@ function App() {
               style={{ display: "flex", flexDirection: "column"}}
             >
               <label style={{textAlign: "center"}}>Suggest a validator address to remove</label>
-              <input type="text" name="input-validator" />
+              <input type="text" name="name" />
               <input type="Submit" />
             </form>
           </div>
@@ -224,7 +258,7 @@ function App() {
               style={{ display: "flex", flexDirection: "column"}}
             >
               <label style={{textAlign: "center"}}>Suggest new token address</label>
-              <input type="text" name="input-token" />
+              <input type="text" name="name" />
               <input type="Submit" />
             </form>
           </div>
@@ -237,7 +271,7 @@ function App() {
               style={{ display: "flex", flexDirection: "column"}}
             >
               <label style={{textAlign: "center"}}>Suggest a token address to remove</label>
-              <input type="text" name="input-token" />
+              <input type="text" name="name" />
               <input type="Submit" />
             </form>
           </div>
@@ -250,18 +284,9 @@ function App() {
               style={{ display: "flex", flexDirection: "column"}}
             >
               <label style={{textAlign: "center"}}>Suggest a new fee</label>
-              <input type="text" name="input-token" />
+              <input type="text" name="name" />
               <input type="Submit" />
             </form>
-          </div>
-          <div>
-            .
-          </div>
-          <div>
-            .
-          </div>
-          <div>
-            .
           </div>
       </div>
   )
