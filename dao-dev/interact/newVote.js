@@ -28,7 +28,7 @@ async function main() {
     web3 = await fetchNetwork();
     const newAmount = 1;
     const suggestedMember = "0x0000000000000000000000000000000000000000";
-    const voteType = "Add Member";
+    const voteType = "Remove Member";
     var hex = web3.utils.asciiToHex(voteType);
     var voteType_ = web3.eth.abi.encodeParameter('bytes', web3.utils.rightPad(hex, 64));
     await addNewAddr(suggestedMember, newAmount, voteType_);

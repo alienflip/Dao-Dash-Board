@@ -36,6 +36,7 @@ async function main () {
                     timeLeftInRound: event.returnValues.timeLeftInRound,
                     currentVoteType: web3.utils.hexToAscii(event.returnValues.currentVoteType).replace(/[\x00]/g, ''),
                     proposedAddress: event.returnValues.proposedAddress,
+                    proposedAmount: event.returnValues.proposedAmount,
                     thresholdVotes: event.returnValues.thresholdVotes,
                     msg: web3.utils.hexToAscii(event.returnValues.msg).replace(/[\x00]/g, '')
                 }
