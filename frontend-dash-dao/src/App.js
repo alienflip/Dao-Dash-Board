@@ -347,7 +347,7 @@ function App() {
   return(
       <div className='main-app'>
           <h1>
-              aramidDAO
+              DaoDashBoard
           </h1>
           <h4>
               (best i get at frontend dev)
