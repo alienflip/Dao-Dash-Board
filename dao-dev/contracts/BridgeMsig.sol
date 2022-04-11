@@ -2,9 +2,9 @@
  * SPDX-License-Identifier: MIT
  */
  
-pragma solidity ^0.8.1;
+pragma solidity ^0.8.0;
 
-contract DAOTooling {
+contract BridgeMsig {
 
     // event system for informing voters of this round information
     event informVoters (
